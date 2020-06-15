@@ -14,6 +14,7 @@ public:
     attackPath* nextWayPoint() const;
 	const QPoint pos() const;
     void draw(QPainter *painter) const;
+
 private:
     const QPoint	m_pos;
     attackPath *	m_nextWayPoint;

@@ -37,7 +37,7 @@ private:
 	int				m_fireRate;		// 代表再次攻击敌人的时间间隔
 	qreal			m_rotationSprite;
 
-    Monster *			m_chooseEnemy;
+    Monster *		m_chooseEnemy;
 	MainWindow *	m_game;
 	QTimer *		m_fireRateTimer;
 

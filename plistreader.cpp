@@ -3,9 +3,7 @@
 #include <QVariant>
 #include <QMap>
 
-PListReader::PListReader()
-{
-}
+PListReader::PListReader(){}
 
 bool PListReader::read(QIODevice *device)
 {
@@ -18,8 +16,7 @@ bool PListReader::read(QIODevice *device)
 		else
 			m_xmlReader.raiseError("The file is not an PList version 1.0 file.");
 	}
-
-	return m_xmlReader.error();
+    return m_xmlReader.error();
 }
 
 const QList<QVariant> PListReader::data() const
@@ -76,11 +73,10 @@ void PListReader::readArray(QList<QVariant> &array)
 void PListReader::readDict(QList<QVariant> &array)
 {
 	Q_ASSERT(m_xmlReader.isStartElement() && m_xmlReader.name() == "dict");
-
 	QMap<QString, QVariant> dict;
 	while (m_xmlReader.readNextStartElement())
 	{
-		// 这里只处理key,在readKey中,一次默认读取一对键值
+        // 这里只处理key
 		if (m_xmlReader.name() == "key")
 			readKey(dict);
 		else
@@ -93,11 +89,8 @@ void PListReader::readDict(QList<QVariant> &array)
 void PListReader::readKey(QMap<QString, QVariant> &dict)
 {
 	Q_ASSERT(m_xmlReader.isStartElement() && m_xmlReader.name() == "key");
-
-	// 这里一次读取一个键值对
 	QString key = m_xmlReader.readElementText();
 	Q_ASSERT(m_xmlReader.readNextStartElement());
 	QString value = m_xmlReader.readElementText();
-
 	dict.insertMulti(key, value);
 }

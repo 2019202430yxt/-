@@ -36,6 +36,7 @@ void Tower::checkEnemyInRange()
 {
 	if (m_chooseEnemy)
 	{
+		// 向量标准化
 		QVector2D normalized(m_chooseEnemy->pos() - m_pos);
 		normalized.normalize();
 		m_rotationSprite = qRadiansToDegrees(qAtan2(normalized.y(), normalized.x())) - 90;
@@ -46,7 +47,7 @@ void Tower::checkEnemyInRange()
 	}
 	else
 	{
-		// 遍历敌人,看是否有敌人在攻击范围内
+        // 遍历敌人
         QList<Monster *> enemyList = m_game->enemyList();
         foreach (Monster *enemy, enemyList)
 		{
@@ -64,9 +65,6 @@ void Tower::draw(QPainter *painter) const
 	painter->save();
 	painter->setPen(Qt::white);
 	// 绘制攻击范围
-//	painter->drawEllipse(m_pos, m_attackRange, m_attackRange);
-
-	// 绘制偏转坐标,由中心+偏移=左上
 	static const QPoint offsetPoint(-ms_fixedSize.width() / 2, -ms_fixedSize.height() / 2);
 	// 绘制炮塔并选择炮塔
 	painter->translate(m_pos);
@@ -99,7 +97,6 @@ void Tower::targetKilled()
 {
 	if (m_chooseEnemy)
 		m_chooseEnemy = NULL;
-
 	m_fireRateTimer->stop();
 	m_rotationSprite = 0.0;
 }

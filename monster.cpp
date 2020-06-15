@@ -27,7 +27,7 @@ Monster::Monster(attackPath *startWayPoint, MainWindow *game, const QPixmap &spr
 	, m_game(game)
     , m_sprite(sprite)
 {
-  //  m_sprite=":/image/monster.jpg";
+
 }
 
 Monster::~Monster()
@@ -49,7 +49,7 @@ void Monster::move()
 
 	if (collisionWithCircle(m_pos, 1, m_destinationWayPoint->pos(), 1))
 	{
-            // 敌人抵达了一个航点
+		// 敌人抵达了一个航点
 		if (m_destinationWayPoint->nextWayPoint())
 		{
 			// 还有下一个航点
@@ -64,8 +64,6 @@ void Monster::move()
 			return;
 		}
 	}
-
-	// 目标航点的坐标
 	QPoint targetPoint = m_destinationWayPoint->pos();
 
 	// 向量标准化
@@ -73,8 +71,6 @@ void Monster::move()
 	QVector2D normalized(targetPoint - m_pos);
 	normalized.normalize();
 	m_pos = m_pos + normalized.toPoint() * movementSpeed;
-
-	// 确定敌人选择方向
 	// 默认图片向左,需要修正180度转右
 	m_rotationSprite = qRadiansToDegrees(qAtan2(normalized.y(), normalized.x())) + 180;
 }
@@ -114,16 +110,17 @@ void Monster::getRemoved()
 
 	foreach (Tower *attacker, m_attackedTowersList)
 		attacker->targetKilled();
+	// 通知game,此敌人已经阵亡
 	m_game->removedEnemy(this);
 }
 
 void Monster::getDamage(int damage)
 {
 	m_currentHp -= damage;
-    // 阵亡,需要移除
+
+	// 阵亡,需要移除
 	if (m_currentHp <= 0)
 	{
-    //	m_game->audioPlayer()->playSound(EnemyDestorySound);
 		m_game->awardGold(200);
 		getRemoved();
 	}

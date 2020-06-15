@@ -16,8 +16,7 @@ class Weapon : QObject
 	Q_PROPERTY(QPoint m_currentPos READ currentPos WRITE setCurrentPos)
 
 public:
-    Weapon(QPoint startPos, QPoint targetPoint, int damage, Monster *target,
-           MainWindow *game, const QPixmap &sprite = QPixmap("../lwTowerDemo/image/Shells0.png"));
+    Weapon(QPoint startPos, QPoint targetPoint, int damage, Monster *target,MainWindow *game, const QPixmap &sprite = QPixmap("../lwTowerDemo/image/Shells0.png"));
 
 	void draw(QPainter *painter) const;
 	void move();
@@ -32,10 +31,9 @@ private:
 	const QPoint	m_targetPos;
 	const QPixmap	m_sprite;
 	QPoint			m_currentPos;
-    Monster *			m_target;
+    Monster *		m_target;
 	MainWindow *	m_game;
-	int				m_damage;
-
+    int				m_harm;
 	static const QSize ms_fixedSize;
 };
 
